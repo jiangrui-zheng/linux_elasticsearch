@@ -1,0 +1,3 @@
+*.json
+./ranked_commits/.
+*.ipynb
