@@ -22,6 +22,7 @@ if not es.indices.exists(index=INDEX_NAME):
                     "datetime": {"type": "date"},  # 假设 datetime 已是 ISO 8601 格式
                     "commit_msg": {"type": "text", "analyzer": "standard"},
                     "diff": {"type": "text", "analyzer": "standard"}
+                    # "diff idx": {"type": "integer"}
                 }
             }
         }
@@ -61,7 +62,9 @@ def import_split_files(directory, index_name, batch_size=100):
 
 
 
+
 split_directory = f"/home/jzheng36/code/linux_elasticsearch/repo2commits_diff/split_{INDEX_NAME}"
+commit2diff_idx = ""
 total_records = import_split_files(split_directory, INDEX_NAME, batch_size=5000)
 
 

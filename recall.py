@@ -3,14 +3,14 @@ import json
 import pandas as pd
 from tqdm import tqdm
 
-
+max_rank = 100000 
 valid_list_path = "/home/jzheng36/code/explain_patch/processed_data/valid_list_all_patchfinder.csv"
-ranked_commits_dir = "/home/jzheng36/code/linux_elasticsearch/ranked_commits"
+ranked_commits_dir = f"/home/jzheng36/code/linux_elasticsearch/ranked_commits_{max_rank}"
 
 valid_list = pd.read_csv(valid_list_path)
 valid_list = valid_list[valid_list['owner'] == 'torvalds']
 
-k_values = range(1000, 5001, 1000)
+k_values = range(5000, 20001, 5000)
 
 def calculate_recall_at_k(valid_list, ranked_commits_dir, k_values):
     """
@@ -54,7 +54,7 @@ print("Recall@k Results:")
 for k, recall in recall_at_k_results.items():
     print(f"Recall@{k}: {recall:.4f}")
 
-output_path = "recall_at_k_results.json"
+output_path = f"recall_at_k_results_{max_rank}.json"
 with open(output_path, "w") as f:
     json.dump(recall_at_k_results, f, indent=4)
 print(f"Results saved to {output_path}")
